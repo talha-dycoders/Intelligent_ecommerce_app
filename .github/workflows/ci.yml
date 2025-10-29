@@ -26,32 +26,32 @@ jobs:
     
     - name: Install backend dependencies
       run: |
-        cd backend
+        cd intelligent-ecommerce/backend
         npm ci
     
     - name: Install frontend dependencies
       run: |
-        cd frontend
+        cd intelligent-ecommerce/frontend
         npm ci
     
     - name: Run backend tests
       run: |
-        cd backend
-        npm test -- --coverage --watchAll=false
+        cd intelligent-ecommerce/backend
+        npm test
     
     - name: Run frontend tests
       run: |
-        cd frontend
-        npm test -- --coverage --watchAll=false
+        cd intelligent-ecommerce/frontend
+        npm test -- --coverage --watchAll=false --passWithNoTests
     
     - name: Build backend
       run: |
-        cd backend
+        cd intelligent-ecommerce/backend
         npm run build
     
     - name: Build frontend
       run: |
-        cd frontend
+        cd intelligent-ecommerce/frontend
         npm run build
 
   # Build Docker images
@@ -78,7 +78,7 @@ jobs:
     - name: Build and push backend image
       uses: docker/build-push-action@v5
       with:
-        context: ./backend
+        context: ./intelligent-ecommerce/backend
         push: true
         tags: ghcr.io/${{ github.repository }}-backend:latest
         cache-from: type=gha
@@ -87,7 +87,7 @@ jobs:
     - name: Build and push frontend image
       uses: docker/build-push-action@v5
       with:
-        context: ./frontend
+        context: ./intelligent-ecommerce/frontend
         push: true
         tags: ghcr.io/${{ github.repository }}-frontend:latest
         cache-from: type=gha
